@@ -24,7 +24,6 @@ const User = require("../model/userSchema");
 //   .catch((err) =>
 //     console.log("Error connecting (auth.js)"));
 
-
 router.use(cookieparser());
 
 router.get("/", (req, res) => {
@@ -145,7 +144,38 @@ router.post("/signin", async (req, res) => {
 
 // about us
 router.get("/about", authenticate, (req, res) => {
-  res.send("Dogesh");
+  console.log("ABOUT");
+  res.send(req.rootUser);
+});
+
+router.get("/getdata", authenticate, (req, res) => {
+  console.log("ABOUT");
+  res.send(req.rootUser);
+});
+
+router.post("/contact", authenticate, async (req, res) => {
+  try {
+    const { name, email, phone, message } = req.body;
+
+    if (!name || !email || !phone || !message) {
+      return res.json({ error: "Please fill the form" });
+    }
+
+    const userContact = await User.findOne({ _id: req.userID });
+
+    if (userContact) {
+      const userMessage = await userContact.addMessage(
+        name,
+        email,
+        phone,
+        message
+      );
+      await userContact.save();
+      res.status(201).json({ message: "User successfully contacted" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = router;

@@ -50,13 +50,13 @@ app.get("/", (req, res) => {
 //   res.send("Dogesh");
 // });
 
-app.get("/contact", (req, res) => {
-  res.send("Kya Re");
-});
+// app.get("/contact", (req, res) => {
+//   res.send("Kya Re");
+// });
 
-app.get("/signin", (req, res) => {
-  res.send("Kya Re");
-});
+// app.get("/signin", (req, res) => {
+//   res.send("Kya Re");
+// });
 
 app.get("/signup", (req, res) => {
   res.send("Kya Re");
