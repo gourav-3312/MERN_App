@@ -1,9 +1,78 @@
-import React from "react";
-import "bootstrap/dist/css/bootstrap.css";
+import React, { useContext } from "react";
+// import "bootstrap/dist/css/bootstrap.css";
 import { NavLink } from "react-router-dom";
 // import logo from "../images/logo.png";
+import { userContext } from "../App";
 
 const Navbar = () => {
+  const { state, dispatch } = useContext(userContext);
+
+  const RenderMenu = () => {
+    if (state) {
+      return (
+        <>
+          <li className="nav-item">
+            <NavLink className="nav-link active" aria-current="page" to="/">
+              Home
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/about">
+              About
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/contact">
+              Contact Us
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/logout">
+              Logout
+            </NavLink>
+          </li>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <li className="nav-item">
+            <NavLink className="nav-link active" aria-current="page" to="/">
+              Home
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/about">
+              About
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/contact">
+              Contact Us
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/login">
+              Login
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/signup">
+              Sign Up
+            </NavLink>
+          </li>
+        </>
+      );
+    }
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-light">
@@ -25,41 +94,7 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <NavLink className="nav-link active" aria-current="page" to="/">
-                  Home
-                </NavLink>
-              </li>
-
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/about">
-                  About
-                </NavLink>
-              </li>
-
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/contact">
-                  Contact Us
-                </NavLink>
-              </li>
-
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/login">
-                  Login
-                </NavLink>
-              </li>
-
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/signup">
-                  Sign Up
-                </NavLink>
-              </li>
-
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/logout">
-                  Logout
-                </NavLink>
-              </li>
+              <RenderMenu />
             </ul>
           </div>
         </div>

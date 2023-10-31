@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useReducer } from "react";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
@@ -8,39 +8,28 @@ import Login from "./components/Login";
 import Contact from "./components/Contact";
 import About from "./components/About";
 import Signup from "./components/Signup";
+import Logout from "./components/Logout";
+import { initialState, reducer } from "../src/reducer/UseReducer"
+
+// context api
+export const userContext = createContext();
 
 const App = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
   return (
     <>
-      <Navbar />
+      <userContext.Provider value={{ state, dispatch }}>
+        <Navbar />
 
-      {/* <Route path = "/">
-        <Home />
-      </Route>
-
-      <Route path="/about">
-        <About />
-      </Route>
-
-      <Route path="contact">
-        <Contact />
-      </Route>
-
-      <Route path="login">
-        <Login />
-      </Route>
-
-      <Route path="signup">
-        <Signup />
-      </Route> */}
-
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/logout" element={<Logout />} />
+        </Routes>
+      </userContext.Provider>
     </>
   );
 };

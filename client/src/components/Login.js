@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-// import { NavLink, useNavigate } from "react-router-dom";
-import { NavLink} from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { userContext } from "../App";
 // import loginpic from "../images/login.svg";
 
 const Login = () => {
-  // const navigate = useNavigate();
+  const { state, dispatch } = useContext(userContext);
+
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,7 +15,7 @@ const Login = () => {
 
     const res = await fetch("/signin", {
       method: "POST",
-      credentials:"include",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -23,13 +25,14 @@ const Login = () => {
       }),
     });
 
-    const data = await res.json();
+    const data = res.json();
 
     if (res.status === 400 || !data) {
       window.alert("Invalid Credentials");
     } else {
+      dispatch({ type: "USER", payload: true });
       window.alert("Login Successful");
-      // navigate.push("/");
+      navigate("/");
     }
   };
 

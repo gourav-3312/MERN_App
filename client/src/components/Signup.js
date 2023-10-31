@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-// import { NavLink, useNavigate } from "react-router-dom";
-import { NavLink} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 // import signpic from "../images/signup.svg";
 
 const Signup = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -29,7 +28,7 @@ const Signup = () => {
 
     const res = await fetch("/register", {
       method: "POST",
-      credentials:"include",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -49,8 +48,7 @@ const Signup = () => {
     } else {
       window.alert("Registration Successful");
       console.log("Registration Successful");
-
-      // navigate.push("/login");
+      navigate("/login");
     }
   };
 
